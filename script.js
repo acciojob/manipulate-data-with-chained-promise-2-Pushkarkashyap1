@@ -1,23 +1,25 @@
-const numbers = [1, 2, 3, 4];
+ const numbers = [1, 2, 3, 4, 5, 6, 7, 8];
 
-function filterEvenNumbers(arr) {
-    return new Promise((resolve) => {
-        const evens = arr.filter(num => num % 2 === 0);
-        document.getElementById("filterResult").textContent = evens;
-        resolve(evens);
-    });
-}
+        document.getElementById("original").textContent = numbers.join(", ");
 
-function multiplyByTwo(arr) {
-    return new Promise((resolve) => {
-        const multiplied = arr.map(num => num * 2);
-        document.getElementById("multiplyResult").textContent = multiplied;
-        resolve(multiplied);
-    });
-}
+        function manipulateData(arr) {
+            return new Promise((resolve) => {
+                const evenNumbers = arr.filter(num => num % 2 === 0);
+                document.getElementById("filtered").textContent = evenNumbers.join(", ");
+                resolve(evenNumbers);
+            })
+            .then((evenNumbers) => {
+                return new Promise((resolve) => {
+                    const multiplied = evenNumbers.map(num => num * 2);
+                    document.getElementById("multiplied").textContent = multiplied.join(", ");
+                    resolve(multiplied);
+                });
+            });
+        }
 
+        manipulateData(numbers);
+    </script>
 
-filterEvenNumbers(numbers)
-    .then(result => multiplyByTwo(result))
-    .catch(error => console.error(error));
+</body>
+</html>
 
